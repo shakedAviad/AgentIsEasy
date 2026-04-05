@@ -2,6 +2,7 @@
 using Microsoft.Extensions.AI;
 
 namespace AgentIsEasy.Core.Middlewares;
+
 public class MiddlewareDelegates
 {
     public delegate ValueTask<object?> ToolCallingMiddleware(
