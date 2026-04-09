@@ -1,5 +1,4 @@
 ﻿using AgentIsEasy.Core.Middlewares;
-using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 
@@ -30,8 +29,6 @@ public class AgentOptions
     public LoggingMiddleware? LoggingMiddleware { get; set; }
 
     public Action<ToolCallingDetails>? RawToolCallDetails { get; set; }
-
-    public Action<ChatClientAgentOptions>? AdditionalChatClientAgentOptions { get; set; }
 
     public Func<IChatClient, IChatClient>? ClientFactory { get; set; }
 

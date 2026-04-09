@@ -4,5 +4,8 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/AgentIsEasy.Core/AgentIsEasy.Core.csproj" />
+    <Project Path="src/AgentIsEasy.ModelContextProtocol/AgentIsEasy.ModelContextProtocol.csproj" />
+    <Project Path="src/AgentIsEasy.OpenAI/AgentIsEasy.OpenAI.csproj" />
+    <Project Path="src/AgentIsEasy.Tools/AgentIsEasy.Tools.csproj" />
   </Folder>
 </Solution>

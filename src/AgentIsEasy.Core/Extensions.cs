@@ -17,11 +17,6 @@ public static class Extensions
                 builder = builder.Use(new ToolCallsHandler(options.RawToolCallDetails).ToolCallingMiddlewareAsync);
             }
 
-            if (options.OpenTelemetryMiddleware is not null)
-            {
-                builder = builder.UseOpenTelemetry(options.OpenTelemetryMiddleware.Source, options.OpenTelemetryMiddleware.Configure);
-            }
-
             if (options.ToolCallingMiddleware is not null)
             {
                 builder = builder.Use(options.ToolCallingMiddleware.Invoke);

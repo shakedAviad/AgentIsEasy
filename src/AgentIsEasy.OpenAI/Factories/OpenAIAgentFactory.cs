@@ -1,5 +1,7 @@
 ﻿using AgentIsEasy.Core;
 using AgentIsEasy.Core.Agents;
+using AgentIsEasy.Core.Interfaces;
+using AgentIsEasy.Core.Models;
 using AgentIsEasy.OpenAI.Enums;
 using AgentIsEasy.OpenAI.Models;
 using Microsoft.Agents.AI;
@@ -11,7 +13,7 @@ using OpenAI.Responses;
 
 namespace AgentIsEasy.OpenAI.Factories;
 
-public class OpenAIAgentFactory
+public class OpenAIAgentFactory : IAgentProviderFactory
 {
     public OpenAIClient Client { get; }
 
@@ -25,20 +27,27 @@ public class OpenAIAgentFactory
         Client = client;
     }
 
-    public OpenAIAgent CreateAgent(string model, string? instructions = null, string? name = null, IList<AITool>? tools = null)
+    public Agent CreateAgent(string model, string? instructions = null, string? name = null, IList<AITool>? tools = null)
     {
-        return CreateAgent(new OpenAIOptions
+        var chatClientOpenAIOptions = new ChatClientAgentOptions()
         {
-            Model = model,
             Name = name,
-            Instructions = instructions,
-            Tools = tools
-        });
+            ChatOptions = new ChatOptions
+            {
+                Tools = tools,
+                Instructions = instructions
+            }
+        };
+
+        var innerAgent = Client.GetChatClient(model).AsAIAgent(chatClientOpenAIOptions);
+
+        return new OpenAIAgent(innerAgent);
     }
 
-    public OpenAIAgent CreateAgent(OpenAIOptions options)
+    public Agent CreateAgent(AgentOptions options)
     {
-        var innerAgent = GetChatClientAgent(options).ApplyMiddleware(options);
+        var chatClientAgent = options is OpenAIOptions openAIOptions ? GetChatClientAgent(openAIOptions) : GetChatClientAgent(options);
+        var innerAgent = chatClientAgent.ApplyMiddleware(options);
 
         return new OpenAIAgent(innerAgent);
     }
@@ -170,5 +179,36 @@ public class OpenAIAgentFactory
 
             return rawOptions;
         }
+    }
+    private ChatClientAgentOptions CreateChatClientOpenAIOptions(AgentOptions options)
+    {
+        var chatOptions = new ChatOptions
+        {
+            Tools = options.Tools,
+            Instructions = options.Instructions
+        };
+
+        var chatClientOpenAIOptions = new ChatClientAgentOptions()
+        {
+            Id = options.Id,
+            Name = options.Name,
+            Description = options.Description,
+        };
+
+        chatClientOpenAIOptions.ChatOptions = chatOptions;
+
+        return chatClientOpenAIOptions;
+
+    }
+    private ChatClientAgent GetChatClientAgent(AgentOptions options)
+    {
+        var chatClientOpenAIOptions = CreateChatClientOpenAIOptions(options);
+
+        return Client.GetChatClient(options.Model)
+                .AsAIAgent(
+                    chatClientOpenAIOptions,
+                    options.ClientFactory,
+                    options.LoggerFactory,
+                    options.Services);
     }
 }
