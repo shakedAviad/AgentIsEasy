@@ -17,7 +17,7 @@ Set environment variables:
 OPENAI_API_KEY=your_openai_api_key
 GITHUB_PAT=your_github_pat
 
-git clone https://github.com/your-repo/AgentIsEasy.git
+git clone https://github.com/shakedAviad/AgentIsEasy.git
 cd AgentIsEasy
 
 dotnet restore
