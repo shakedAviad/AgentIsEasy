@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Sandbox/">
+    <Project Path="Sandbox/Demo/Demo.csproj" Id="e3593684-86ce-4180-ae6b-331059efbfb6" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
   </Folder>
