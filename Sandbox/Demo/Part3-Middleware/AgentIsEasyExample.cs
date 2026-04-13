@@ -34,7 +34,7 @@ public static class AgentIsEasyExample
 
         var agent = factory.CreateAgent(new OpenAIOptions
         {
-            Model = "gpt-4o",
+            Model = "gpt-5-mini",
             Name = "GitHubAssistant",
             Instructions = """
                 You are a helpful assistant.

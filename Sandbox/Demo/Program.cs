@@ -8,7 +8,6 @@
     Environment.SetEnvironmentVariable("GITHUB_PAT", <Your GITHUB_PAT>);
  */
 
-
 var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 var gitHubPat = Environment.GetEnvironmentVariable("GITHUB_PAT");
 
@@ -18,35 +17,36 @@ if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(gitHubPat))
 }
 
 #region Part 1: Simple Agent
-Console.WriteLine("=== PART 1: SIMPLE AGENT ===");
-Console.WriteLine("Question: What is 2 + 2?");
+Demo.Utils.WriteHeader("PART 1: SIMPLE AGENT");
+Console.WriteLine("User Prompt: What is 2 + 2?");
+Console.WriteLine();
 
 await Demo.Part1.MicrosoftExample.RunAsync(apiKey);
 
-Console.WriteLine(string.Empty.PadLeft(Console.WindowWidth, '-'));
+Demo.Utils.Separator();
 
 await Demo.Part1.AgentIsEasyExample.RunAsync(apiKey);
 #endregion
 
 #region Part 2: Tools and MCP
-Console.Clear();
-Console.WriteLine("=== PART 2: TOOLS AND MCP ===");
-
+Demo.Utils.WriteHeader("PART 2: TOOLS AND MCP");
+Console.WriteLine("User Prompt: Get my public repositories GitHub.");
+Console.WriteLine();
 await Demo.Part2.ToolsAndMcp.MicrosoftExample.RunAsync(apiKey, gitHubPat);
 
-Console.WriteLine(string.Empty.PadLeft(Console.WindowWidth, '-'));
+Demo.Utils.Separator();
 
 await Demo.Part2.ToolsAndMcp.AgentIsEasyExample.RunAsync(apiKey, gitHubPat);
 #endregion
 
 #region Part 3: Middleware Agent
-Console.Clear();
-Console.WriteLine("=== PART 3: MIDDLEWARE ===");
+Demo.Utils.WriteHeader("PART 3: MIDDLEWARE AGENT");
+Console.WriteLine("User Prompt: Get my public repositories GitHub.");
 Console.WriteLine();
 
 await Demo.Part3.Middleware.MicrosoftExample.RunAsync(apiKey, gitHubPat);
 
-Console.WriteLine(string.Empty.PadLeft(Console.WindowWidth, '-'));
+Demo.Utils.Separator();
 
 await Demo.Part3.Middleware.AgentIsEasyExample.RunAsync(apiKey, gitHubPat);
 #endregion

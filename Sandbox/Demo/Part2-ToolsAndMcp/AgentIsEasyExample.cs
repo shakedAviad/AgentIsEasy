@@ -28,7 +28,7 @@ public static class AgentIsEasyExample
         var factory = new OpenAIAgentFactory(openAiApiKey);
 
         var agent = factory.CreateAgent(
-            model: "gpt-4o",
+            model: "gpt-5-mini",
             instructions: """
                 You are a helpful assistant.                       
                 Use tools when needed.

@@ -39,7 +39,7 @@ public static class MicrosoftExample
         var client = new OpenAIClient(openAiApiKey);
 
         var agent = client
-            .GetChatClient("gpt-4o")
+            .GetChatClient("gpt-5-mini")
             .AsAIAgent(new ChatClientAgentOptions
             {
                 Name = "GitHubAssistant",
